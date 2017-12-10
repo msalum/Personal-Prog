@@ -24,7 +24,7 @@ public class Horoscope {
             Horoscope x = new Horoscope();
 
 
-        System.out.println("___      ___        ___    ___   ___    __    ___  ___   ___   ___ ");
+        System.out.println("___      ___        ___    ___   ___    ___   ___  ___   ___   ___ ");
         System.out.println(" |  |__||__   |__| |   |  | __| |   |  |__   |    |   | |___| |___ ");
         System.out.println(" |  |  ||___  |  | |___|  |   | |___|  ___|  |___ |___| |     |___ ");
         System.out.println("");
@@ -52,7 +52,54 @@ public class Horoscope {
 
         System.out.printf("Your Zodiac Sign is: %s\n",
                 x.getZodiac(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)));
+
+        String text=("   The Tip of the day for (SIGN) is: " +
+                "Tensions with money, ownership, or workload and shared " +
+                "responsibilities are mounting now,(SIGN). While this may take another" +
+                "day or two to play out,(SIGN) likely to confront some of these matters" +
+                "today, even if this happens indirectly. An awkward angle between Mars" +
+                "and Chiron points to the need to make adjustments rather than bold moves." +
+                "Others may not be clear with (SIGN) today, but consider that they may " +
+                "not be in touch with what it is they truly desire.(SIGN), try not to " +
+                "worry about mixed signals and instead wait until others have sorted " +
+                "things out. Asserting yourself may have awkward results since this is " +
+                "not the best day to understand your own desires, either. This also" +
+                "applies to material desires, so you might want to put off making larger" +
+                "purchases just for now. (SIGN), do not worry,tomorrow will be a better day!");
+
+        System.out.printf("Do you want Horoscope of the day?(Yes/No): ");
+        Scanner in = new Scanner(System.in);
+        String exerciseQuestion;
+        while (true){
+            //get the user input
+            exerciseQuestion = in.nextLine();
+            //check if user input is yes or no
+            if((exerciseQuestion.equalsIgnoreCase("yes")) ||
+                    exerciseQuestion.equalsIgnoreCase("no"))
+                //if yes break and continue with your code
+                break;
+            else
+                //else loop back to get user input until answer is yes/no
+                System.out.println("Please answer with YES or NO only:");
+
+        }//while . i.e answer not yes or no
+
+        if(exerciseQuestion.equalsIgnoreCase("yes")){
+            System.out.println(text);
+            //do your code
+        }
+        else{
+            System.out.println("Thank you for using The Horoscope!");
+            //do your not exercise code here
+
+        }
+
+                text=text.replace("(SIGN)","...");
+        System.out.println(text);
+
+
     }
+
         // Capricorn December 22 - January 19            jan=0
         // Aquarius January 20 - February 18             feb=1
         // February 19 - March 20 pisces                 mar=2
@@ -95,9 +142,15 @@ public class Horoscope {
         } else {
             return null;
         }
-    }
 
-    
+        /*while(month > 10) {
+            System.out.println("Try again!"); //prints when month > 13
+            month ++;
+        }*/
+
+
+
+
     // write your code here
 
 
@@ -106,4 +159,5 @@ public class Horoscope {
 
 
 
+}
 }
