@@ -53,7 +53,7 @@ public class Horoscope {
             } else {
                 System.out.printf("Incorrect date format, please inset date again .\n ");
             }
-
+        }
             Calendar cal = Calendar.getInstance();
             cal.setLenient(false);
             try {
@@ -115,7 +115,7 @@ public class Horoscope {
 
 
         }
-    }
+
 
 
 
