@@ -89,7 +89,7 @@ public class Horoscope {
             //System.out.println(text);
             //do your code
 
-            text=text.replace("(SIGN)","...");
+            text=text.replace("(SIGN)","..."); //replacement peab olema vastus, mis tuletatakse sisestatud kuupäevast
             System.out.println(text);
         }
         else{
@@ -162,12 +162,13 @@ public class Horoscope {
             System.out.println("Try again!"); //prints when month > 13
             month ++;
         }*/
+ // kalkulaator alustab igat ringi uuesti , näiteks 13 =1 ja 14=2 jne kuni lõpmatuseni. Kuidas seda viga lahendada ?
+        // googlest sain vastuse ,et while loop on hea lahendus, aga see ei tööta :(
 
 
 
 
-    // write your code here
-
+                           // THE END
 
 
 
