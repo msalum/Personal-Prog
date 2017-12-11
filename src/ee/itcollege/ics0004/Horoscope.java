@@ -53,6 +53,7 @@ public class Horoscope {
         System.out.printf("Your Zodiac Sign is: %s\n",
                 x.getZodiac(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)));
 
+
         String text=("   The Tip of the day for (SIGN) is: " +
                 "Tensions with money, ownership, or workload and shared " +
                 "responsibilities are mounting now,(SIGN). While this may take another" +
@@ -85,8 +86,11 @@ public class Horoscope {
         }//while . i.e answer not yes or no
 
         if(exerciseQuestion.equalsIgnoreCase("yes")){
-            System.out.println(text);
+            //System.out.println(text);
             //do your code
+
+            text=text.replace("(SIGN)","...");
+            System.out.println(text);
         }
         else{
             System.out.println("Thank you for using The Horoscope!");
@@ -94,8 +98,19 @@ public class Horoscope {
 
         }
 
-                text=text.replace("(SIGN)","...");
-        System.out.println(text);
+
+        /*String zodiac = "Your Zodiac Sign is: %s\n";
+
+        if ( text.contains("(SIGN)")) {
+            String zodiac = text.replaceFirst(String text, String zodiac);
+            System.out.println(zodiac);
+
+
+        }else{
+            System.out.println("not found!");
+        }
+          */
+
 
 
     }
