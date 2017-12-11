@@ -35,8 +35,38 @@ public class Horoscope {
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
-        System.out.printf("Enter Your Birthday dd/mm: ");
-        String input = s.nextLine();
+
+        String input = "";
+
+        while (true){
+            System.out.printf("Enter Your Birthday dd/mm: ");
+            String inputTemp = s.nextLine();
+
+            String[] splitData = inputTemp.split("/");
+                    if ((Integer.parseInt(splitData[0]) > 0 && Integer.parseInt(splitData[0]) <= 31)
+                        && ( Integer.parseInt(splitData[1]) <= 12 && Integer.parseInt(splitData[1]) >0)){
+                        input = inputTemp;
+                        break;
+                    } else {
+                        System.out.println("Incorrect date format, please inset date again .\n");
+                    }
+        }
+        /*String input = s.nextLine();
+        Calendar cal = Calendar.getInstance();
+        cal.setLenient(false);
+        try
+        {
+            Date date = sdf.parse(input);
+            cal = new GregorianCalendar();
+            cal.setTime(date);
+        }
+        catch (ParseException pe)
+        {
+            pe.printStackTrace();
+        } */
+        //String input2 = s.nextLine();
+
+
         Calendar cal = Calendar.getInstance();
         cal.setLenient(false);
         try
@@ -50,8 +80,12 @@ public class Horoscope {
             pe.printStackTrace();
         }
 
-        System.out.printf("Your Zodiac Sign is: %s\n",
-                x.getZodiac(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)));
+        String myzodiac =           x.getZodiac(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+        System.out.printf("Your Zodiac Sign is: %s\n", myzodiac);
+
+        /*System.out.printf("Your Zodiac Sign is: %s\n",
+                      x.getZodiac(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)));*/
 
 
         String text=("   The Tip of the day for (SIGN) is: " +
@@ -89,7 +123,7 @@ public class Horoscope {
             //System.out.println(text);
             //do your code
 
-            text=text.replace("(SIGN)","..."); //replacement peab olema vastus, mis tuletatakse sisestatud kuupäevast
+            text=text.replace("(SIGN)",myzodiac); //replacement peab olema vastus, mis tuletatakse sisestatud kuupäevast
             System.out.println(text);
         }
         else{
@@ -157,6 +191,8 @@ public class Horoscope {
         } else {
             return null;
         }
+
+
 
         /*while(month > 10) {
             System.out.println("Try again!"); //prints when month > 13
