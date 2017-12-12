@@ -20,8 +20,8 @@ public class Horoscope {
 
     public static void main(String[] args) {
 
-        Scanner s = new Scanner(System.in);  // input
-        Horoscope x = new Horoscope();       //input
+        Scanner s = new Scanner(System.in);
+        Horoscope x = new Horoscope();
 
 
         System.out.println("___      ___        ___    ___   ___    ___   ___  ___   ___   ___ ");
@@ -45,80 +45,100 @@ public class Horoscope {
             System.out.println("Enter Your Birthday dd/mm: ");
             String inputTemp = s.nextLine();
 
-            String[] splitData = inputTemp.split("/");
-            if ((Integer.parseInt(splitData[0]) > 0 && Integer.parseInt(splitData[0]) <= 31)
-                    && (Integer.parseInt(splitData[1]) <= 12 && Integer.parseInt(splitData[1]) > 0)) {
-                input = inputTemp;
-                break;
-            } else {
-                System.out.printf("Incorrect date format, please inset date again .\n ");
-            }
-        }
-            Calendar cal = Calendar.getInstance();
-            cal.setLenient(false);
             try {
-                Date date = sdf.parse(input);
-                cal = new GregorianCalendar();
-                cal.setTime(date);
-            } catch (ParseException pe) {
-                pe.printStackTrace();
-            }
+                String[] splitData = inputTemp.split("/");
 
-            String myzodiac = x.getZodiac(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+                // Here code controls dates. NOTE! All monthts are 31 days, which is wrong, but
+                // since it does not change the truth of output, then its correct
 
-            //System.out.println("Your Zodiac Sign is: %s\n", myzodiac);
-
-            System.out.printf("Your Zodiac Sign is: %s\n", myzodiac);
-
-
-            String text = ("   The Tip of the day for (SIGN) is: " +
-                    "Tensions with money, ownership, or workload and shared " +
-                    "responsibilities are mounting now,(SIGN). While this may take another" +
-                    "day or two to play out,(SIGN) likely to confront some of these matters" +
-                    "today, even if this happens indirectly. An awkward angle between Mars" +
-                    "and Chiron points to the need to make adjustments rather than bold moves." +
-                    "Others may not be clear with (SIGN) today, but consider that they may " +
-                    "not be in touch with what it is they truly desire.(SIGN), try not to " +
-                    "worry about mixed signals and instead wait until others have sorted " +
-                    "things out. Asserting yourself may have awkward results since this is " +
-                    "not the best day to understand your own desires, either. This also" +
-                    "applies to material desires, so you might want to put off making larger" +
-                    "purchases just for now. (SIGN), do not worry,tomorrow will be a better day!");
-
-            System.out.println("Do you want Horoscope of the day?(Yes/No): ");
-            Scanner in = new Scanner(System.in);
-            String exerciseQuestion;
-            while (true) {
-                //get the user input
-                exerciseQuestion = in.nextLine();
-                //check if user input is yes or no
-                if ((exerciseQuestion.equalsIgnoreCase("yes")) ||
-                        exerciseQuestion.equalsIgnoreCase("no"))
-                    //if yes break and continue with your code
+                if ((Integer.parseInt(splitData[0]) > 0 && Integer.parseInt(splitData[0]) <= 31)
+                        && (Integer.parseInt(splitData[1]) <= 12 && Integer.parseInt(splitData[1]) > 0)) {
+                    input = inputTemp;
                     break;
-                else
-                    //else loop back to get user input until answer is yes/no
-                    System.out.println("Please answer with YES or NO only:");
+                } else {
+                    // if entered input is out of range ( date higher than 31, month hirgher than 12
+                    System.out.print("Error! Please try again! \n");
 
+                }
+            } catch (NumberFormatException e) {
+                // if date etered in other format than dd/mm
+                System.out.print("Wrong format! Please enter date as dd/mm. \n");
             }
-
-            if (exerciseQuestion.equalsIgnoreCase("yes")) {
-
-
-                text = text.replace("(SIGN)", myzodiac);
-                System.out.println(text);
-
-            } else {
-                System.out.println("Thank you for using The Horoscope!");
-
-            }
-
 
         }
 
+        // java Calendar utility
+
+        Calendar cal = Calendar.getInstance();
+        cal.setLenient(false);
+        try {
+            Date date = sdf.parse(input);
+            cal = new GregorianCalendar();
+            cal.setTime(date);
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+
+        // if input is entered correctly than output will be correct Zodiac
+
+        String myzodiac = x.getZodiac(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+
+        System.out.printf("Your Zodiac Sign is: %s\n", myzodiac);
+
+        // Daily Horoscope
+
+        String text = ("   The Tip of the day for (SIGN) is: " +
+                "Tensions with money, ownership, or workload and shared " +
+                "responsibilities are mounting now,(SIGN). While this may take another" +
+                "day or two to play out,(SIGN) likely to confront some of these matters" +
+                "today, even if this happens indirectly. An awkward angle between Mars" +
+                "and Chiron points to the need to make adjustments rather than bold moves." +
+                "Others may not be clear with (SIGN) today, but consider that they may " +
+                "not be in touch with what it is they truly desire.(SIGN), try not to " +
+                "worry about mixed signals and instead wait until others have sorted " +
+                "things out. Asserting yourself may have awkward results since this is " +
+                "not the best day to understand your own desires, either. This also" +
+                "applies to material desires, so you might want to put off making larger" +
+                "purchases just for now. (SIGN), do not worry,tomorrow will be a better day!");
+
+        System.out.println("Do you want Horoscope of the day?(Yes/No): ");
+
+        // only yes/no input, if yes printout text, if no printout else value
+
+        Scanner in = new Scanner(System.in);
+        String exerciseQuestion;
+
+        // if users aswers anything else than yes or no
+        while (true) {
+            exerciseQuestion = in.nextLine();
+
+            if ((exerciseQuestion.equalsIgnoreCase("yes")) ||
+                    exerciseQuestion.equalsIgnoreCase("no"))
+                break;
+
+            else {
+                System.out.println("Please answer with YES or NO only:");
+
+            }
+        }
+
+        // if user enters yes, program will print out upper text replacing (SIGN) with correct Zodiac
+        if (exerciseQuestion.equalsIgnoreCase("yes")) {
+            text = text.replace("(SIGN)", myzodiac);
+            System.out.println(text);
+        }
+
+        // if user does not want to read Horoscope of the day, than program will exit with nice wish
+        else {
+            System.out.println("Thank you for using The Horoscope!");
+
+        }
+
+    }
 
 
 
+ // Principle for calculating Zodiacs.
 
 
         // Capricorn December 22 - January 19            jan=0
@@ -164,6 +184,9 @@ public class Horoscope {
         }
 
 
-        // THE END
+
     }
 }
+
+
+                      //The End
