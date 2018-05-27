@@ -4,8 +4,18 @@ package ee.itcollege;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,6 +29,10 @@ import java.util.Scanner;                  // produces input values
 public class Main extends Application {
     private Stage window;
     private Stage dialog = new Stage();
+    private TextField enterDate = new TextField();
+    private TextField enterYesno = new TextField();
+    private Button submitButton = new Button("Get Zodiac");
+    private Text yourZodiac = new Text();
 
 
     public static void main(String[] args) {
@@ -29,16 +43,70 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
         window.setTitle("The Horoscope");
-        /*dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(window);*/
 
 
         BorderPane border = new BorderPane();
 
-        Scene scene = new Scene(border, 400, 400);
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(0, 10, 0, 10));
+
+        Text heading = new Text("Welcome to the Horoscope");
+        heading.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+        grid.add(heading, 1, 0);
+
+        Text birthDay = new Text("Enter Your Birthday dd/mm: ");
+        birthDay.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        grid.add(birthDay, 1, 1);
+
+        enterDate.setPromptText("Enter date");
+        grid.add(enterDate, 1, 2);
+
+        Text zodiac = new Text("Your Zodiac Sign is: ");
+        zodiac.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        grid.add(zodiac, 1, 4);
+
+        yourZodiac.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
+        grid.add(yourZodiac, 2, 4);
+
+        grid.add(submitButton, 1, 3);
+
+
+
+
+        submitButton.setOnAction(e -> handleSubmit());
+
+
+        Scene scene = new Scene(grid, 800, 400);
         window.setScene(scene);
 
         window.show();
+
+    }
+    private void handleSubmit(){
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(window);
+
+        VBox dialogVbox = new VBox(20);
+
+        Label label = new Label("Title for new note: ");
+        label.setMinWidth(300);
+        label.setAlignment(Pos.CENTER);
+
+        Button createNotebutton = new Button("Create new note");
+        createNotebutton.setAlignment(Pos.CENTER);
+
+        createNotebutton.setOnAction(e -> {
+
+        });
+
+        dialogVbox.getChildren().addAll(label, createNotebutton);
+        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        dialog.setScene(dialogScene);
+        dialog.show();
+
+
     }
 
 
@@ -46,8 +114,6 @@ public class Main extends Application {
 
 
 
-        /*primaryStage.setTitle("The IP Man - IP subnetter and calculator by Karl H. Leppmets");
-        BorderPane border = new BorderPane();*/
 
     /*String[] zodiacSigns = new String[]    // results
 
