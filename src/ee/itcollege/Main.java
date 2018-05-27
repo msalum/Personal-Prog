@@ -31,6 +31,8 @@ public class Main extends Application {
     private TextField enterYesno = new TextField();
     private Button submitButton = new Button("Get Zodiac");
     private Text yourZodiac = new Text();
+    private Text exitMessage = new Text();
+    private Text errorText= new Text();
 
 
     public static void main(String[] args) {
@@ -70,9 +72,10 @@ public class Main extends Application {
 
         grid.add(submitButton, 1, 3);
 
+        errorText.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
+        grid.add(errorText, 2, 3);
 
-
-
+        
         submitButton.setOnAction(e -> handleSubmit());
 
 
@@ -83,6 +86,36 @@ public class Main extends Application {
 
     }
     private void handleSubmit(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");   // custom date format
+
+
+
+        // while loop ends calculation, otherwise program would calculate endless possibilities
+        String input = "";
+        String inputTemp = enterDate.getText();
+
+        try {
+            String[] splitData = inputTemp.split("/");
+
+            // Here code controls dates. NOTE! All monthts are 31 days, which is wrong, but
+            // since it does not change the truth of output, then its correct
+
+            if ((Integer.parseInt(splitData[0]) > 0 && Integer.parseInt(splitData[0]) <= 31)
+                    && (Integer.parseInt(splitData[1]) <= 12 && Integer.parseInt(splitData[1]) > 0)) {
+                input = inputTemp;
+            } else {
+                // if entered input is out of range ( date higher than 31, month hirgher than 12
+                System.out.print("Error! Please try again! \n");
+
+            }
+        } catch (NumberFormatException e) {
+            // if date etered in other format than dd/mm
+            System.out.print("Wrong format! Please enter date as dd/mm. \n");
+        }
+
+    }
+
+    private void openDialog() {
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(window);
 
@@ -112,11 +145,22 @@ public class Main extends Application {
         spacer.setMinSize(10, 1);
 
         hbox.getChildren().addAll(yesButton, spacer, noButton);
-        dialogVbox.getChildren().addAll(label, hbox);
+        dialogVbox.getChildren().addAll(label, hbox, exitMessage);
 
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
+
+        yesButton.setOnAction(e -> yesSubmit());
+        noButton.setOnAction(e -> noSubmit());
+    }
+
+    private void yesSubmit() {
+    }
+
+    private void noSubmit() {
+
+        exitMessage.setText("Thank you for using The Horoscope!");
 
 
     }
