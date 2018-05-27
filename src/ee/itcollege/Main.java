@@ -36,7 +36,8 @@ public class Main extends Application {
     private Label yourZodiac = new Label();
     private Text errorText = new Text();
     private Label exitMessage = new Label();
-    private TextArea horoscopeContent = new TextArea();
+    private Label horoscopeContent = new Label();
+    private String theSign = "";
 
 
     public static void main(String[] args) {
@@ -133,7 +134,8 @@ public class Main extends Application {
         zodiac.setMinWidth(300);
         zodiac.setAlignment(Pos.CENTER);
 
-        yourZodiac.setText(getZodiac());
+        theSign = getZodiac();
+        yourZodiac.setText(theSign);
         yourZodiac.setMinWidth(300);
         yourZodiac.setAlignment(Pos.CENTER);
 
@@ -170,12 +172,33 @@ public class Main extends Application {
         dialog.setScene(dialogScene);
         dialog.show();
 
-        //yesButton.setOnAction(e -> yesSubmit());
+        yesButton.setOnAction(e -> yesSubmit());
         noButton.setOnAction(e -> noSubmit());
     }
 
     private void yesSubmit() {
         dialog.hide();
+
+        String text = ("   The Tip of the day for (SIGN) is: " +
+                "Tensions with money, ownership, or workload and shared " +
+                "responsibilities are mounting now,(SIGN). While this may take another" +
+                "day or two to play out,(SIGN) likely to confront some of these matters" +
+                "today, even if this happens indirectly. An awkward angle between Mars" +
+                "and Chiron points to the need to make adjustments rather than bold moves." +
+                "Others may not be clear with (SIGN) today, but consider that they may " +
+                "not be in touch with what it is they truly desire.(SIGN), try not to " +
+                "worry about mixed signals and instead wait until others have sorted " +
+                "things out. Asserting yourself may have awkward results since this is " +
+                "not the best day to understand your own desires, either. This also" +
+                "applies to material desires, so you might want to put off making larger" +
+                "purchases just for now. (SIGN), do not worry,tomorrow will be a better day!");
+
+
+        text = text.replace("(SIGN)", theSign);
+        //horoscopeContent.setDisable(true);
+        horoscopeContent.setWrapText(true);
+        horoscopeContent.setText(text);
+
     }
 
     private void noSubmit() {
