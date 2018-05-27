@@ -10,9 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -90,18 +88,32 @@ public class Main extends Application {
 
         VBox dialogVbox = new VBox(20);
 
-        Label label = new Label("Title for new note: ");
+        Label label = new Label("Do you want Horoscope of the day?(Yes/No): ");
         label.setMinWidth(300);
         label.setAlignment(Pos.CENTER);
 
-        Button createNotebutton = new Button("Create new note");
-        createNotebutton.setAlignment(Pos.CENTER);
+        HBox hbox = new HBox();
+        hbox.setMinWidth(300);
+        hbox.setPrefWidth(500);
+        hbox.setMaxWidth(1000000);
+        hbox.setPadding(new Insets(15, 12, 15, 12));
+        hbox.setSpacing(10);
+        //hbox.setStyle("-fx-background-color: #336699;");
 
-        createNotebutton.setOnAction(e -> {
 
-        });
+        Button yesButton = new Button("YES");
+        yesButton.setPrefSize(100, 20);
 
-        dialogVbox.getChildren().addAll(label, createNotebutton);
+        Button noButton = new Button("NO");
+        noButton.setPrefSize(100, 20);
+
+        Pane spacer = new Pane();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        spacer.setMinSize(10, 1);
+
+        hbox.getChildren().addAll(yesButton, spacer, noButton);
+        dialogVbox.getChildren().addAll(label, hbox);
+
         Scene dialogScene = new Scene(dialogVbox, 300, 200);
         dialog.setScene(dialogScene);
         dialog.show();
