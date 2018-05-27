@@ -30,8 +30,8 @@ applies to material desires, so you might want to put off making larger purchase
 just for now. **(SIGN)**, do not worry, tomorrow will be a better day! :)(smiley)
 
 **Next level challenge:**
-* Use icon to print out smiley
-* Use avatar picture for every sign
+* Add GUI
+
 
   
  
