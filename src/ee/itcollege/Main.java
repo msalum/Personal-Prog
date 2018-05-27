@@ -9,11 +9,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -31,9 +33,10 @@ public class Main extends Application {
     private TextField enterDate = new TextField();
     private TextField enterYesno = new TextField();
     private Button submitButton = new Button("Get Zodiac");
-    private Text yourZodiac = new Text();
-    private Text exitMessage = new Text();
+    private Label yourZodiac = new Label();
     private Text errorText = new Text();
+    private Label exitMessage = new Label();
+    private TextArea horoscopeContent = new TextArea();
 
 
     public static void main(String[] args) {
@@ -44,6 +47,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
         window.setTitle("The Horoscope");
+
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(window);
 
 
         BorderPane border = new BorderPane();
@@ -64,14 +70,16 @@ public class Main extends Application {
         enterDate.setPromptText("Enter date");
         grid.add(enterDate, 1, 2);
 
-        Text zodiac = new Text("Your Zodiac Sign is: ");
-        zodiac.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-        grid.add(zodiac, 1, 4);
+        //Text zodiac = new Text("Your Zodiac Sign is: ");
+        //zodiac.setFont(Font.font("Arial", FontWeight.BOLD, 15));
+        //grid.add(zodiac, 1, 4);
 
-        yourZodiac.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
-        grid.add(yourZodiac, 2, 4);
+        //yourZodiac.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
+        //grid.add(yourZodiac, 1, 5);
 
         grid.add(submitButton, 1, 3);
+
+        grid.add(horoscopeContent, 1,4);
 
         errorText.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
         grid.add(errorText, 2, 2);
@@ -118,10 +126,16 @@ public class Main extends Application {
     }
 
     private void openDialog() {
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(window);
 
         VBox dialogVbox = new VBox(20);
+
+        Label zodiac = new Label("Your Zodiac Sign is: ");
+        zodiac.setMinWidth(300);
+        zodiac.setAlignment(Pos.CENTER);
+
+        yourZodiac.setText(getZodiac());
+        yourZodiac.setMinWidth(300);
+        yourZodiac.setAlignment(Pos.CENTER);
 
         Label label = new Label("Do you want Horoscope of the day?(Yes/No): ");
         label.setMinWidth(300);
@@ -146,23 +160,96 @@ public class Main extends Application {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 1);
 
-        hbox.getChildren().addAll(yesButton, spacer, noButton);
-        dialogVbox.getChildren().addAll(label, hbox, exitMessage);
+        exitMessage.setMinWidth(300);
+        exitMessage.setAlignment(Pos.CENTER);
 
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
+        hbox.getChildren().addAll(yesButton, spacer, noButton);
+        dialogVbox.getChildren().addAll(zodiac, yourZodiac, label, hbox, exitMessage);
+
+        Scene dialogScene = new Scene(dialogVbox, 300, 250);
         dialog.setScene(dialogScene);
         dialog.show();
 
-        yesButton.setOnAction(e -> yesSubmit());
+        //yesButton.setOnAction(e -> yesSubmit());
         noButton.setOnAction(e -> noSubmit());
     }
 
     private void yesSubmit() {
-
+        dialog.hide();
     }
 
     private void noSubmit() {
         exitMessage.setText("Thank you for using The Horoscope!");
+    }
+
+    private String getZodiac() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+
+        String[] zodiacSigns = new String[]
+
+                {
+                        "Capricorn", "Aquarius", "Pisces", "Aries", "Taurus", "Gemini",
+                        "Cancer", "Leo", "Virgo", "Libra",
+                        "Scorpio", "Sagittarius"
+                };
+
+        Calendar cal = Calendar.getInstance();
+        cal.setLenient(false);
+        try {
+            Date date = sdf.parse(enterDate.getText());
+            cal = new GregorianCalendar();
+            cal.setTime(date);
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+
+        int month = Calendar.MONTH;
+        int day = Calendar.DAY_OF_MONTH;
+
+        // Capricorn December 22 - January 19            jan=0
+        // Aquarius January 20 - February 18             feb=1
+        // February 19 - March 20 pisces                 mar=2
+        // Aries March 21 - April 19                     apr=3
+        // Taurus April 20 - May 20                      may=4
+        // Gemini May 21 - June 20                       jun=5
+        // Cancer June 21 - July 22                      jul=6
+        // Leo July 23 - August 22                       aug=7
+        // Virgo August 23 - September 22                sep=8
+        // Libra September 23 - October 22               oct=9
+        // Scorpio October 23 - November 21              nov=10
+        // Sagittarius November 22 - December 21         dec=11
+
+
+        if ((month == 11) && (day >= 22) || (month == 0) && (day <= 19)) {
+            return zodiacSigns[0];
+        } else if ((month == 0) && (day >= 20) || (month == 1) && (day <= 18)) {
+            return zodiacSigns[1];
+        } else if ((month == 1) && (day >= 19) || (month == 2) && (day <= 20)) {
+            return zodiacSigns[2];
+        } else if ((month == 2) && (day >= 21) || (month == 3) && (day <= 19)) {
+            return zodiacSigns[3];
+        } else if ((month == 3) && (day >= 20) || (month == 4) && (day <= 20)) {
+            return zodiacSigns[4];
+        } else if ((month == 4) && (day >= 21) || (month == 5) && (day <= 20)) {
+            return zodiacSigns[5];
+        } else if ((month == 5) && (day >= 21) || (month == 6) && (day <= 22)) {
+            return zodiacSigns[6];
+        } else if ((month == 6) && (day >= 23) || (month == 7) && (day <= 22)) {
+            return zodiacSigns[7];
+        } else if ((month == 7) && (day >= 23) || (month == 8) && (day <= 21)) {
+            return zodiacSigns[8];
+        } else if ((month == 8) && (day >= 22) || (month == 9) && (day <= 21)) {
+            return zodiacSigns[9];
+        } else if ((month == 9) && (day >= 24) || (month == 10) && (day <= 22)) {
+            return zodiacSigns[10];
+        } else if ((month == 10) && (day >= 23) || (month == 11) && (day <= 21)) {
+            return zodiacSigns[11];
+        } else {
+            return "";
+        }
+
+
+
     }
 
 
