@@ -1,6 +1,8 @@
 package ee.itcollege.ics0004;
 
 
+import javafx.event.EventHandler;
+
 import java.text.ParseException;           // occurs whe String does not meet the standards
 import java.text.SimpleDateFormat;         // date format MM/dd/yyyy
 import java.util.Calendar;
@@ -8,7 +10,7 @@ import java.util.Date;                     // dates
 import java.util.GregorianCalendar;        // most common calendar format, subclass of calendar
 import java.util.Scanner;                  // produces input values
 
-public class Horoscope {
+public class Horoscope extends Application implements EventHandler<ActionEvent>{
 
     String[] zodiacSigns = new String[]    // results
 
@@ -18,7 +20,7 @@ public class Horoscope {
                     "Scorpio", "Sagittarius"
             };
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         Scanner s = new Scanner(System.in);
         Horoscope x = new Horoscope();
@@ -185,7 +187,7 @@ public class Horoscope {
 
 
 
-    }
+    }*/
 }
 
 
