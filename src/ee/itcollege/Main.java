@@ -1,7 +1,13 @@
-package ee.itcollege.ics0004;
+package ee.itcollege;
 
 
+import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.text.ParseException;           // occurs whe String does not meet the standards
 import java.text.SimpleDateFormat;         // date format MM/dd/yyyy
@@ -10,15 +16,46 @@ import java.util.Date;                     // dates
 import java.util.GregorianCalendar;        // most common calendar format, subclass of calendar
 import java.util.Scanner;                  // produces input values
 
-public class Horoscope extends Application implements EventHandler<ActionEvent>{
+public class Main extends Application {
+    private Stage window;
+    private Stage dialog = new Stage();
 
-    String[] zodiacSigns = new String[]    // results
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        window = primaryStage;
+        window.setTitle("The Horoscope");
+        /*dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(window);*/
+
+
+        BorderPane border = new BorderPane();
+
+        Scene scene = new Scene(border, 400, 400);
+        window.setScene(scene);
+
+        window.show();
+    }
+
+
+
+
+
+
+        /*primaryStage.setTitle("The IP Man - IP subnetter and calculator by Karl H. Leppmets");
+        BorderPane border = new BorderPane();*/
+
+    /*String[] zodiacSigns = new String[]    // results
 
             {
                     "Capricorn", "Aquarius", "Pisces", "Aries", "Taurus", "Gemini",
                     "Cancer", "Leo", "Virgo", "Libra",
                     "Scorpio", "Sagittarius"
-            };
+            };*/
 
     /*public static void main(String[] args) {
 
