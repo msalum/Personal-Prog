@@ -23,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;                     // dates
 import java.util.GregorianCalendar;        // most common calendar format, subclass of calendar
 import java.util.Scanner;                  // produces input values
+import java.util.concurrent.TimeUnit;
 
 public class Main extends Application {
     private Stage window;
@@ -32,7 +33,7 @@ public class Main extends Application {
     private Button submitButton = new Button("Get Zodiac");
     private Text yourZodiac = new Text();
     private Text exitMessage = new Text();
-    private Text errorText= new Text();
+    private Text errorText = new Text();
 
 
     public static void main(String[] args) {
@@ -73,9 +74,9 @@ public class Main extends Application {
         grid.add(submitButton, 1, 3);
 
         errorText.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
-        grid.add(errorText, 2, 3);
+        grid.add(errorText, 2, 2);
 
-        
+
         submitButton.setOnAction(e -> handleSubmit());
 
 
@@ -103,14 +104,15 @@ public class Main extends Application {
             if ((Integer.parseInt(splitData[0]) > 0 && Integer.parseInt(splitData[0]) <= 31)
                     && (Integer.parseInt(splitData[1]) <= 12 && Integer.parseInt(splitData[1]) > 0)) {
                 input = inputTemp;
+                openDialog();
             } else {
                 // if entered input is out of range ( date higher than 31, month hirgher than 12
-                System.out.print("Error! Please try again! \n");
+                errorText.setText("Error! Please try again! \n");
 
             }
         } catch (NumberFormatException e) {
             // if date etered in other format than dd/mm
-            System.out.print("Wrong format! Please enter date as dd/mm. \n");
+            errorText.setText("Wrong format! Please enter date as dd/mm. \n");
         }
 
     }
@@ -156,13 +158,11 @@ public class Main extends Application {
     }
 
     private void yesSubmit() {
+
     }
 
     private void noSubmit() {
-
         exitMessage.setText("Thank you for using The Horoscope!");
-
-
     }
 
 
