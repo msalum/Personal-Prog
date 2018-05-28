@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 import java.text.ParseException;           // occurs whe String does not meet the standards
 import java.text.SimpleDateFormat;         // date format MM/dd/yyyy
-import java.util.Calendar;
+import java.util.Calendar;                 // sets month and day
 import java.util.Date;                     // dates
 import java.util.GregorianCalendar;        // most common calendar format, subclass of calendar
 
@@ -25,7 +25,6 @@ public class Main extends Application {
     private Stage window;
     private Stage dialog = new Stage();
     private TextField enterDate = new TextField();
-    private TextField enterYesno = new TextField();
     private Button submitButton = new Button("Get Zodiac");
     private Label yourZodiac = new Label();
     private Text errorText = new Text();
@@ -39,7 +38,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {   // main window, using grid
         window = primaryStage;
         window.setTitle("The Horoscope");
 
@@ -47,41 +46,41 @@ public class Main extends Application {
         dialog.initOwner(window);
 
         BorderPane border = new BorderPane();
-
+        // main window layout
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(0, 10, 0, 10));
-
+        // heading
         Text heading = new Text("Welcome to the Horoscope");
         heading.setFont(Font.font("Arial", FontWeight.BOLD, 30));
         grid.add(heading, 1, 0);
-
+        // text for input box
         Text birthDay = new Text("Enter Your Birthday dd/mm: ");
         birthDay.setFont(Font.font("Arial", FontWeight.BOLD, 15));
         grid.add(birthDay, 1, 1);
-
+        // input box
         enterDate.setPromptText("Enter date");
         grid.add(enterDate, 1, 2);
-
+        // Get Zodiac button
         grid.add(submitButton, 1, 3);
-
+        // Textarea for daily horoscope text
         grid.add(horoscopeContent, 1, 4);
-
+        // if entered date dont match with format or correct value
         errorText.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
         grid.add(errorText, 2, 2);
-
+        // button function, see below handleSubmit
         submitButton.setOnAction(e -> handleSubmit());
-
+        // window size
         Scene scene = new Scene(grid, 800, 400);
         window.setScene(scene);
 
         window.show();
     }
 
-    private void handleSubmit() {
+    private void handleSubmit() {    // Get Zodiac button function
+
         horoscopeContent.setText("");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");   // custom date format
 
         String input = "";
         String inputTemp = enterDate.getText();
@@ -97,7 +96,7 @@ public class Main extends Application {
                 input = inputTemp;
                 openDialog();
             } else {
-                // if entered input is out of range ( date higher than 31, month hirgher than 12
+                // if entered input is out of range ( date higher than 31, month higher than 12
                 errorText.setText("Error! Please try again! \n");
             }
         } catch (NumberFormatException e) {
@@ -106,56 +105,57 @@ public class Main extends Application {
         }
     }
 
-    private void openDialog() {
-        VBox dialogVbox = new VBox(20);
-
+    private void openDialog() {    // second window
+        VBox dialogVbox = new VBox(10);  // vbox is used for text
+        // displayes zodiac calculated by program
         Label zodiac = new Label("Your Zodiac Sign is: ");
         zodiac.setMinWidth(300);
         zodiac.setAlignment(Pos.CENTER);
-
+        // func for getting zodiac
         theSign = getZodiac();
         yourZodiac.setText(theSign);
         yourZodiac.setMinWidth(300);
         yourZodiac.setAlignment(Pos.CENTER);
-
+        // text area for question
         Label label = new Label("Do you want Horoscope of the day?(Yes/No): ");
         label.setMinWidth(300);
         label.setAlignment(Pos.CENTER);
-
+        // hbox is used for buttons (table format)
         HBox hbox = new HBox();
         hbox.setMinWidth(300);
         hbox.setPrefWidth(500);
         hbox.setMaxWidth(1000000);
         hbox.setPadding(new Insets(15, 12, 15, 12));
         hbox.setSpacing(10);
-
+        // yes button
         Button yesButton = new Button("YES");
         yesButton.setPrefSize(100, 20);
-
+        // no button
         Button noButton = new Button("NO");
         noButton.setPrefSize(100, 20);
-
+        // button style
         Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         spacer.setMinSize(10, 1);
-
+        // if no exit with nice wish
         exitMessage.setMinWidth(300);
         exitMessage.setAlignment(Pos.CENTER);
-
+        // dislayss
         hbox.getChildren().addAll(yesButton, spacer, noButton);
         dialogVbox.getChildren().addAll(zodiac, yourZodiac, label, hbox, exitMessage);
-
+        // window settings
         Scene dialogScene = new Scene(dialogVbox, 300, 250);
         dialog.setScene(dialogScene);
         dialog.show();
-
+        // button functions
         yesButton.setOnAction(e -> yesSubmit());
         noButton.setOnAction(e -> noSubmit());
     }
 
     private void yesSubmit() {
+        // if new date entered
         dialog.hide();
-
+        // daily horoscope text
         String text = ("   The Tip of the day for (SIGN) is: " +
             "Tensions with money, ownership, or workload and shared " +
             "responsibilities are mounting now,(SIGN). While this may take another" +
@@ -169,17 +169,18 @@ public class Main extends Application {
             "not the best day to understand your own desires, either. This also" +
             "applies to material desires, so you might want to put off making larger" +
             "purchases just for now. (SIGN), do not worry,tomorrow will be a better day!");
-
+        // zodiac replacement
         text = text.replace("(SIGN)", theSign);
         horoscopeContent.setWrapText(true);
         horoscopeContent.setText(text);
     }
-
+    // small window exit message
     private void noSubmit() {
         exitMessage.setText("Thank you for using The Horoscope!");
     }
-
+    // for calculating zodiac sign
     private String getZodiac() {
+        // custom date format
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
 
         String[] zodiacSigns = new String[]
@@ -188,7 +189,7 @@ public class Main extends Application {
                 "Cancer", "Leo", "Virgo", "Libra",
                 "Scorpio", "Sagittarius"
         };
-
+        // for calculating date and month
         Calendar cal = Calendar.getInstance();
         cal.setLenient(false);
         try {
@@ -214,7 +215,7 @@ public class Main extends Application {
         // Libra September 23 - October 22               oct=9
         // Scorpio October 23 - November 21              nov=10
         // Sagittarius November 22 - December 21         dec=11
-
+        
         if ((month == 11) && (day >= 22) || (month == 0) && (day <= 19)) {
             return zodiacSigns[0];
         } else if ((month == 0) && (day >= 20) || (month == 1) && (day <= 18)) {
