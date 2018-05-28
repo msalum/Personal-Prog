@@ -7,10 +7,10 @@ Target is to use knowledges from previous lessons and use them all in this proje
 
 **How does it work?**
 * User inserts his/hers birthday date
-* Program guesses his/hers horoscope sign
+* Program calculates his/hers horoscope sign
 * Program asks if user would like to know his/hers daily horoscope?
 * If yes - then prints out horoscope of the day
-* If no - thank the users to try and wishes good day
+* If no - thanks the users for using program
 * Note: Program uses for every horoscope the same text, but changes the name of the sign according to entered date.
   Example: if **Capricorn**, prints out: The tip of the day for **Capricorn** is ...
   If some other sign: The tip of the day for **Lion** is .... etc.
@@ -31,6 +31,10 @@ just for now. **(SIGN)**, do not worry, tomorrow will be a better day! :)(smiley
 
 **Next level challenge:**
 * Add GUI
+GUI is added using JavaFX. Program uses 2 windows to display text. 
+* Windows
+In main window user inserts his/her birthday. If date is entered as requested, than program calculates zodiac sign and displays it in new window. In small new windows correct sign is displayed and program asks if user will like to see horoscope of the day, if answered yes, program will return to main window, if answered no, then program will exit with nice wish. In main window the daily text is displayed with correct sign.
+
 
 
   

@@ -1,6 +1,9 @@
 package ee.itcollege;
 
-
+/*
+* The Horoscope
+* Copyright (c) 2018 msalum
+* */
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -215,7 +218,7 @@ public class Main extends Application {
         // Libra September 23 - October 22               oct=9
         // Scorpio October 23 - November 21              nov=10
         // Sagittarius November 22 - December 21         dec=11
-        
+
         if ((month == 11) && (day >= 22) || (month == 0) && (day <= 19)) {
             return zodiacSigns[0];
         } else if ((month == 0) && (day >= 20) || (month == 1) && (day <= 18)) {
